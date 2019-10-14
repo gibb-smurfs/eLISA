@@ -14,3 +14,5 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+$router->get('api/ideas', 'IdeaController@index');
+$router->get('api/idea/{id}', 'IdeaController@show');
