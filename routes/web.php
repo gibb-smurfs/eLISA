@@ -16,3 +16,4 @@ $router->get('/', function () use ($router) {
 });
 $router->get('api/ideas', 'IdeaController@index');
 $router->get('api/idea/{id}', 'IdeaController@show');
+$router->post('api/ideas', 'IdeaController@create');

@@ -22,4 +22,19 @@ class IdeaController extends Controller
         $idea = Idea::with(['comments', 'ratings'])->find($id);
         return response()->json($idea);
     }
+
+    public function create(Request $request)
+    {
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $title = $request->input('title');
+        $content = $request->input('content');
+
+        if ($name && $email && $title && $content) {
+            Idea::create(['name' => $name, 'email' => $email, 'title' => $title, 'content' => $content]);
+            return response('1', 200);
+        } else {
+            return response('0', 400);
+        }
+    }
 }
