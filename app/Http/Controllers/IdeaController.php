@@ -25,16 +25,16 @@ class IdeaController extends Controller
 
     public function create(Request $request)
     {
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $title = $request->input('title');
-        $content = $request->input('content');
+        //@TODO: sanitization
 
-        if ($name && $email && $title && $content) {
-            Idea::create(['name' => $name, 'email' => $email, 'title' => $title, 'content' => $content]);
-            return response('1', 200);
-        } else {
-            return response('0', 400);
-        }
+        $this->validate($request, [
+            'name' => 'required|max:20|alpha_dash',
+            'email' => 'required|email|max:60',
+            'title' => 'required|min:5|max:80',
+            'content' => 'required|min:10|max:1000'
+        ]);
+
+        $idea = Idea::create(['name' => $request->post('name'), 'email' => $request->post('email'), 'title' => $request->post('title'), 'content' => $request->post('content')]);
+        return response($idea->id, 200);
     }
 }

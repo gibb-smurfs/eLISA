@@ -1,7 +1,16 @@
 @extends('common.master')
 
-@section('sidebar', 'foo')
+@section('title', 'eLISA')
+@section('subtitle', 'A place to share ideas')
 
 @section('content')
-        <h1>Hello, <?php echo $name; ?></h1>
+    <div class="p-1">
+        @foreach($ideas as $idea)
+            @include('common.idea_card', array(
+            "id" => $idea->id,
+            "card_title" => $idea->title,
+            "card_content" => $idea->content
+            ))
+        @endforeach
+    </div>
 @endsection

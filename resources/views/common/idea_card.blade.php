@@ -1,7 +1,6 @@
-<div class="card" >
+<div class="card mb-3 p-1">
     <div class="card-body">
-        <h5 class="card-title"><a href="/idea/@yield('id')">@yield('title')asdf</a></h5>
-        <h6 class="card-subtitle mb-2 text-muted">@yield('subtitle')asdf</h6>
-        <p class="card-text">@yield('content')asdf</p>
+        <h5 class="card-title"><a href="/idea/{{$id}}">{{$card_title}}</a></h5>
+        <p class="card-text">{!! \Illuminate\Support\Str::words($card_content, 30,'....')  !!}</p>
     </div>
 </div>

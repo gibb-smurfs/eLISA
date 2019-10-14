@@ -11,9 +11,10 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/', 'HomeController@index');
+$router->get('idea/new', 'HomeController@new');
+$router->get('idea/{id}', 'HomeController@show');
 $router->get('api/ideas', 'IdeaController@index');
 $router->get('api/idea/{id}', 'IdeaController@show');
 $router->post('api/ideas', 'IdeaController@create');
+
