@@ -17,6 +17,7 @@ class Idea extends Model
         return $this->hasMany('App\Models\Comment', 'idea_id');
     }
 
+    protected $hidden = ['email'];
     protected $fillable = ['name', 'email', 'title', 'content'];
     protected $table = 't_idea';
     protected $primaryKey = 'id';
