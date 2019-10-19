@@ -11,9 +11,12 @@
 |
 */
 
+use App\Providers\TripcodeProvider;
+
+
 $factory->define(App\Models\Idea::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->userName(),
+        'name' => TripcodeProvider::crypt($faker->userName()),
         'email' => $faker->email(),
         'title' => $faker->catchPhrase,
         'content' => $faker->text($maxNbChars = 950),
@@ -30,7 +33,7 @@ $factory->define(App\Models\Rating::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Comment::class, function (Faker\Generator $faker) {
     return [
         'idea_id' => $faker->numberBetween($min = 1, $max = 100),
-        'name' => $faker->userName(),
+        'name' => TripcodeProvider::crypt($faker->userName()),
         'title' => $faker->catchPhrase(),
         'content' => $faker->text($maxNbChars = 850),
     ];
