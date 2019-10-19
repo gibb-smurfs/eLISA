@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Idea;
 use App\Providers\TripcodeProvider;
-use App\Models\Rating;
-use Illuminate\Support\Facades\DB;
 
 class IdeaController extends Controller
 {
