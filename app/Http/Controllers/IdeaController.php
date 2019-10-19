@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Idea;
+use App\Providers\TripcodeProvider;
 
 class IdeaController extends Controller
 {
@@ -28,13 +29,13 @@ class IdeaController extends Controller
         //@TODO: sanitization
 
         $this->validate($request, [
-            'name' => 'required|max:20|alpha_dash',
+            'name' => 'nullable|max:20|alpha_dash',
             'email' => 'required|email|max:60',
             'title' => 'required|min:5|max:80',
             'content' => 'required|min:10|max:1000'
         ]);
 
-        $idea = Idea::create(['name' => $request->post('name'), 'email' => $request->post('email'), 'title' => $request->post('title'), 'content' => $request->post('content')]);
+        $idea = Idea::create(['name' => TripcodeProvider::crypt($request->post('name')), 'email' => $request->post('email'), 'title' => $request->post('title'), 'content' => $request->post('content')]);
         return response($idea->id, 200);
     }
 }
