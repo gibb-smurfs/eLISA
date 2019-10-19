@@ -10,7 +10,7 @@
             "id" => $idea->id,
             "card_title" => $idea->title,
             "card_content" => $idea->content,
-            "avg_rating" => $idea->avg_rating
+            "avg_rating" => $idea->avg_rating ? $idea->avg_rating : 'N/A'
             ))
         @endforeach
     </div>

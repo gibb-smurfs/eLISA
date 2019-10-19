@@ -14,7 +14,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        $ideas = Idea::leftJoin(DB::raw('(SELECT idea_id, ROUND(AVG(rating), 2) AS avg_rating FROM t_rating GROUP BY idea_id) a'), 'id', '=', 'idea_id')->select('id', 'name', 'title', 'content', 'created_at', 'updated_at', 'avg_rating')->orderBy('created_at', 'asc')->paginate(8);
+        $ideas = Idea::leftJoin(DB::raw('(SELECT idea_id, ROUND(AVG(rating), 2) AS avg_rating FROM t_rating GROUP BY idea_id) a'), 'id', '=', 'idea_id')->select('id', 'name', 'title', 'content', 'created_at', 'updated_at', 'avg_rating')->orderBy('created_at', 'desc')->paginate(8);
         return view('Home', ['ideas' => $ideas, 'pagination' => $ideas]);
     }
 
