@@ -18,7 +18,7 @@ class Idea extends Model
     }
 
     protected $hidden = ['email'];
-    protected $fillable = ['name', 'email', 'title', 'content'];
+    protected $fillable = ['name', 'email', 'title', 'content', 'created_at'];
     protected $table = 't_idea';
     protected $primaryKey = 'id';
 }

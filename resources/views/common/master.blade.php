@@ -40,10 +40,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/trending">Top Ideas <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/top">Top Ideas <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/top">Trending</a>
+                <a class="nav-link" href="/trending">Trending</a>
             </li>
             <li class="nav-item ml-md-3">
                 <a class="btn btn-success" href="/idea/new">Post Your Idea</a>

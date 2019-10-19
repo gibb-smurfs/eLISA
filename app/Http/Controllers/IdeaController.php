@@ -20,17 +20,6 @@ class IdeaController extends Controller
         return response()->json($ideas);
     }
 
-    public function top(Request $request)
-    {
-        $topIdeas = Idea::leftJoin(DB::raw('(SELECT idea_id, AVG(rating) AS avg_rating FROM t_rating GROUP BY idea_id) a'), 'id', '=', 'idea_id')->select('id', 'name', 'title', 'content', 'created_at', 'updated_at', 'avg_rating')->orderBy('avg_rating', 'desc')->take(10)->get();
-        return response()->json($topIdeas);
-    }
-
-    public function trending(Request $request) {
-        $trendingIdeas = Idea::leftJoin(DB::raw('(SELECT idea_id, AVG(rating) AS avg_rating FROM t_rating WHERE created_at > CURRENT_DATE - 7 GROUP BY idea_id) a'), 'id', '=', 'idea_id')->select('id', 'name', 'title', 'content', 'created_at', 'updated_at', 'avg_rating')->orderBy('avg_rating', 'desc')->take(10)->get();
-        return response()->json($trendingIdeas);
-    }
-
     public function show($id)
     {
         $idea = Idea::with(['comments'])->find($id);

@@ -25,7 +25,7 @@ class HomeController extends Controller
     }
 
     public function trending(Request $request) {
-        $ideas = Idea::leftJoin(DB::raw('(SELECT idea_id, ROUND(AVG(rating), 2) AS avg_rating FROM t_rating WHERE created_at > CURRENT_DATE - 7 GROUP BY idea_id) a'), 'id', '=', 'idea_id')->select('id', 'name', 'title', 'content', 'created_at', 'updated_at', 'avg_rating')->orderBy('avg_rating', 'desc')->take(10)->get();
+        $ideas = Idea::leftJoin(DB::raw('(SELECT idea_id, SUM(CASE WHEN created_at > DATE(NOW()) - INTERVAL 7 DAY THEN 1 ELSE 0 END) AS cnt_rating, ROUND(AVG(rating), 2) AS avg_rating FROM t_rating GROUP BY idea_id) a'), 'id', '=', 'idea_id')->select('id', 'name', 'title', 'content', 'created_at', 'updated_at', 'avg_rating')->orderBy('cnt_rating', 'desc')->take(10)->orderBy('avg_rating', 'desc')->get();
         return view('Home', ['ideas' => $ideas]);
     }
 
