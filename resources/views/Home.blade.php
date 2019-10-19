@@ -9,8 +9,15 @@
             @include('common.idea_card', array(
             "id" => $idea->id,
             "card_title" => $idea->title,
-            "card_content" => $idea->content
+            "card_content" => $idea->content,
+            "avg_rating" => $idea->avg_rating
             ))
         @endforeach
     </div>
+
+    @isset($pagination)
+        <div class="d-flex justify-content-center">
+            {{$pagination}}
+        </div>
+    @endisset
 @endsection
