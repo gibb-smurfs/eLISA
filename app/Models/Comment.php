@@ -12,6 +12,8 @@ class Comment extends Model
         return $this->belongsTo('App\Models\Idea', 'idea_id');
     }
 
+    protected $hidden = ['email'];
+    protected $fillable = ['idea_id', 'name', 'title', 'content'];
     protected $table = 't_comment';
     protected $primaryKey = 'id';
 }
