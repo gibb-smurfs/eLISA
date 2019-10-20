@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Idea;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 class SearchController extends Controller
 {
@@ -11,16 +13,18 @@ class SearchController extends Controller
     {
     }
 
-    public function search($query)
+    public function search(Request $request)
     {
-        $where_string = $this->build_where_string($query);
+        //@TODO: sanitize inputs
+
+        $where_string = $this->build_where_string($request->input('search'));
         $search_results = Idea::leftJoin(DB::raw('(SELECT idea_id, AVG(rating) AS avg_rating FROM t_rating GROUP BY idea_id) a'), 'id', '=', 'idea_id')->select('id', 'name', 'title', 'content', 'created_at', 'updated_at', 'avg_rating')->whereRaw($where_string)->get();
         return view('Home', ['ideas' => $search_results]);
     }
 
     private function build_where_string($query)
     {
-        $query_parts = explode('+', $query);
+        $query_parts = explode(' ', $query);
         $where_string = '';
         $counter = 0;
         foreach ($query_parts as $query_part)
