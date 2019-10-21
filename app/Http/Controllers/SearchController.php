@@ -24,17 +24,12 @@ class SearchController extends Controller
 
     private function build_where_string($query)
     {
-        $query_parts = explode(' ', $query);
-        $where_string = '';
-        $counter = 0;
-        foreach ($query_parts as $query_part)
-        {
-            if ($counter != 0) {
-                $where_string .= " OR ";
-            }
-            $where_string .= "title LIKE \"%$query_part%\" OR content LIKE \"%$query_part%\"";
-            $counter += 1;
-        }
-        return $where_string;
+        
+        $pattern = '/\s+/g';
+        $replacement = "%' OR '%";
+        
+        $str = preg_replace($pattern, $replacement, trim($query));
+  
+        return "title LIKE '%$str%' OR content LIKE '%$str%'";
     }
 }
