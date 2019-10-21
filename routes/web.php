@@ -18,6 +18,7 @@ $router->get('/top', 'HomeController@top');
 $router->get('/trending', 'HomeController@trending');
 $router->get('idea/new', 'HomeController@new');
 $router->get('idea/{id}', 'HomeController@show');
+$router->get('/search', 'SearchController@search');
 
 // Api Routes
 $router->get('api/ideas', 'IdeaController@index');
