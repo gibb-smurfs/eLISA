@@ -11,7 +11,7 @@
             <h1 class="w-100">{{$idea->title}}</h1>
             <p class="blockquote-footer ml-5 w-100">by {{$idea->name}}, {{$idea->created_at}} UTC</p>
             <div class="text-justify w-100">{{$idea->content}}</div>
-            <a href="" class="btn btn-primary mt-5">Contact OP</a>
+            <a href="/contact/{{$idea->id}}" class="btn btn-primary mt-5">Contact OP</a>
         </div>
 
         <h2 class="mt-5 mb-2">Comments:</h2>
