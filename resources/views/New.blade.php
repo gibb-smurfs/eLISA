@@ -4,7 +4,7 @@
 @section('subtitle', 'Share your idea')
 
 @section('content')
-    <div class="container">
+    <div class="container text-light">
         <form onsubmit="event.preventDefault();submitIdea()">
             <div class="form-group">
                 <label for="frm_uname">Name</label>

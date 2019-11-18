@@ -7,38 +7,38 @@
 @section('content')
 
     <div class="container">
-        <div class="row bg-white p-5">
+        <div class="row bg-white p-5 rounded">
             <h1 class="w-100">{{$idea->title}}</h1>
             <p class="blockquote-footer ml-5 w-100">by {{$idea->name}}, {{$idea->created_at}} UTC</p>
             <div class="text-justify w-100">{{$idea->content}}</div>
             <a href="" class="btn btn-primary mt-5">Contact OP</a>
         </div>
 
-        <h2 class="mt-5 mb-2">Comments:</h2>
+        <h2 class="mt-5 mb-2 text-light">Comments:</h2>
 
         <div class="row">
             @if($idea->comments->count() > 0)
                 @foreach($idea->comments as $comment)
-                    <div class="comment p-2 pl-3 mt-5 bg-white border-primary border-left">
+                    <div class="comment p-5 pl-3 mt-5 bg-white border-muted rounded border-left" style="border-width: 0px 0px 0px 10px !important">
                         <h3 class="h5 w-100">{{$comment->title}}</h3>
                         <p class="blockquote-footer pl-5 w-100">by {{$comment->name}}, {{$comment->created_at}} UTC</p>
                         <div class="small text-justify w-100">{{$comment->content}}</div>
                     </div>
                 @endforeach
             @else
-                <div>
+                <div class="text-light">
                     No comments found.
                 </div>
             @endif
         </div>
 
         <div class="row">
-            <div class="container mt-5">
+            <div class="container mt-5 text-light">
                 <h3>Post a comment</h3>
                 <form onsubmit="event.preventDefault();submitIdea()" class="mt-4">
                     <div class="form-group">
                         <label for="frm_uname">Name</label>
-                        <input type="email" class="form-control" id="frm_uname" placeholder="Anonymous">
+                        <input type="text" class="form-control" id="frm_uname" placeholder="Anonymous">
                     </div>
                     <div class="form-group">
                         <label for="frm_title">Title @include('common.required_indicator')</label>
