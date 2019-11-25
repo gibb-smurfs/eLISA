@@ -11,8 +11,6 @@ services:
             dockerfile: web.docker
         volumes:
             - ./elisa_data/:/var/www
-        links:
-            - app
         networks:
             - netisa
         ports:
@@ -25,12 +23,11 @@ services:
             dockerfile: app.docker
         volumes:
             - ./elisa_data/:/var/www
-        links:
-            - mysql
         networks:
             - netisa
     mysql:
         image: mariadb:latest
+        container_name: elisa_db
         environment:
             - "MYSQL_ROOT_PASSWORD=secret"
             - "MYSQL_DATABASE=db"
