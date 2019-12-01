@@ -2,16 +2,16 @@
 
 eLISA is a little application to share Ideas and commit to one to start developing.
 
-## Local development
+## Installation
 
-`PHP >= 7.2` is required.
+1.) Add a `.env` file holding the credentials (checkout `./elisa_data/.env.example`)  
+2.) Install docker and docker-compose.  
+3.) Run `docker-compose up`.  
 
-1.) Add a `.env` file holding the credentials.  
-2.) Make sure composer is installed, then run `composer install` in the project root.  
-3.) Make sure to enable pdo and mbsting. pdo has to be uncommented in your php.ini file.  
-4.) Surf using `cd public && php -S localhost:3000`.
+## Development
 
-## API Documentation
+Checkout the installation steps above.
 
-All ideas: `http://localhost:3000/api/ideas`.  
-Idea with id: `http://localhost:3000/api/ideas/:id`.
+Instead of step 3 do `docker-compose up --force-recreate --build`.  
+4.) Execute `docker-compose exec app php artisan migrate` (while the containers are running).  
+5.) Generate some example data with `docker-compose exec app <some command>`.
