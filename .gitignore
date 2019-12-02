@@ -1,4 +1,7 @@
 elisa_data/vendor
+elisa_data/.env
+elisa_data/.idea
+elisa_data/storage
 /.idea
 /.vscode
 Homestead.json
