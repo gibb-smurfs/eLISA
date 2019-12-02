@@ -1,42 +1,51 @@
-version: '3'
+version: '2.4'
 
 networks:
-    netisa:
-        driver: bridge
+  netisa:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
 
 services:
-    web:
-        build:
-            context: ./
-            dockerfile: web.docker
-        volumes:
-            - ./elisa_data/:/var/www
-        networks:
-            - netisa
-        ports:
-            - 8088:80
-        expose:
-            - 80
-    app:
-        build:
-            context: ./
-            dockerfile: app.docker
-        volumes:
-            - ./elisa_data/:/var/www
-        networks:
-            - netisa
-    mysql:
-        image: mariadb:latest
-        container_name: elisa_db
-        environment:
-            - "MYSQL_ROOT_PASSWORD=secret"
-            - "MYSQL_DATABASE=db"
-        volumes:
-            - dbdata:/var/lib/mysql
-        expose:
-            - 3306
-        networks:
-            - netisa
-volumes:
-    dbdata:
-        driver: local
+  web:
+    container_name: elisa_web
+    build:
+      context: ./
+      dockerfile: app.docker
+    networks:
+      - netisa
+    ports:
+      - 8088:80
+    expose:
+      - 80
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+  mysql:
+    image: mariadb:latest
+    container_name: elisa_db
+    volumes:
+      - dbdata:/var/lib/mysql
+    expose:
+      - 3306
+    networks:
+      - netisa
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  smtp:
+    image: namshi/smtp
+    container_name: smtp_server
+    restart: unless-stopped
+    environment:
+      - MAILNAME=smtp_server
+    expose:
+      - 25
+    networks:
+      - netisa
