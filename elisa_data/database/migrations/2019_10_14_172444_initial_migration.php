@@ -10,8 +10,8 @@ class InitialMigration extends Migration
     {
         Schema::create('t_idea', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 20);
-            $table->string('email', 60);
+            $table->string('name', 32);
+            $table->string('email', 512);
             $table->string('title', 80);
             $table->string('content', 1000);
             $table->timestamps();
