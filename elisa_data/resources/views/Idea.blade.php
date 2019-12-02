@@ -8,6 +8,10 @@
 
     <div class="container">
         <div class="row bg-white p-5 rounded">
+            <div>
+                <input id="rating" name="rating" class="rating rating-loading" data-min="0" data-max="5" data-step="1"
+                       data-show-caption="false">
+            </div>
             <h1 class="w-100">{{$idea->title}}</h1>
             <p class="blockquote-footer ml-5 w-100">by {{$idea->name}}, {{$idea->created_at}} UTC</p>
             <div class="text-justify w-100">{{$idea->content}}</div>
@@ -19,7 +23,8 @@
         <div class="row">
             @if($idea->comments->count() > 0)
                 @foreach($idea->comments as $comment)
-                    <div class="comment p-5 pl-3 mt-5 bg-white border-muted rounded border-left" style="border-width: 0px 0px 0px 10px !important">
+                    <div class="comment p-5 pl-3 mt-5 bg-white border-muted rounded border-left"
+                         style="border-width: 0px 0px 0px 10px !important">
                         <h3 class="h5 w-100">{{$comment->title}}</h3>
                         <p class="blockquote-footer pl-5 w-100">by {{$comment->name}}, {{$comment->created_at}} UTC</p>
                         <div class="small text-justify w-100">{{$comment->content}}</div>
@@ -117,6 +122,40 @@
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(payload));
         }
+    </script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/css/star-rating.min.css" media="all"
+          rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/themes/krajee-svg/theme.css"
+          media="all" rel="stylesheet" type="text/css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/js/star-rating.min.js"
+            type="text/javascript"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/themes/krajee-svg/theme.js"></script>
+    <style>
+        .krajee-icon-clear {
+            display: none !important;;
+        }
+    </style>
+    <script>
+        $("#rating").rating({'theme': 'krajee-svg', 'showCaptionAsTitle': false,});
+        $('#rating').on('rating:change', function (event, value, caption) {
+            fetch('/api/ratings', {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrer: 'no-referrer',
+                body: JSON.stringify({
+                    idea: window.location.href.split('/').pop(),
+                    rating: value
+                })
+            })
+        });
     </script>
 @endsection
 
