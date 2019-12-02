@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Idea;
 use App\Providers\TripcodeProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class IdeaController extends Controller
 {
@@ -35,7 +36,7 @@ class IdeaController extends Controller
             'content' => 'required|min:10|max:1000'
         ]);
 
-        $idea = Idea::create(['name' => TripcodeProvider::crypt($request->post('name')), 'email' => $request->post('email'), 'title' => $request->post('title'), 'content' => $request->post('content')]);
+        $idea = Idea::create(['name' => TripcodeProvider::crypt($request->post('name')), 'email' => Crypt::encrypt($request->post('email')), 'title' => $request->post('title'), 'content' => $request->post('content')]);
         return response($idea->id, 200);
     }
 }
