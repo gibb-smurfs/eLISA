@@ -15,8 +15,6 @@ class CommentController extends Controller
 
     public function create(Request $request)
     {
-        //@TODO: sanitization
-
         $this->validate($request, [
             'idea' => 'required|numeric',
             'name' => 'nullable|max:20|alpha_dash',

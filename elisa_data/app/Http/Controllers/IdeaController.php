@@ -27,8 +27,6 @@ class IdeaController extends Controller
 
     public function create(Request $request)
     {
-        //@TODO: sanitization
-
         $this->validate($request, [
             'name' => 'nullable|max:20|alpha_dash',
             'email' => 'required|email|max:60',
