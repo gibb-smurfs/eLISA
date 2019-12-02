@@ -12,12 +12,13 @@
 */
 
 use App\Providers\TripcodeProvider;
+use Illuminate\Support\Facades\Crypt;
 
 
 $factory->define(App\Models\Idea::class, function (Faker\Generator $faker) {
     return [
         'name' => TripcodeProvider::crypt($faker->userName()),
-        'email' => $faker->email(),
+        'email' => Crypt::encrypt($faker->email()),
         'title' => $faker->catchPhrase,
         'content' => $faker->text($maxNbChars = 950),
         'created_at' => $faker->dateTimeBetween($startDate = '-10 months', $endDate = 'now', $timezone = 'UTC')

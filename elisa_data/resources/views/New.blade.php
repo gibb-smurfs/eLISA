@@ -4,11 +4,11 @@
 @section('subtitle', 'Share your idea')
 
 @section('content')
-    <div class="container">
+    <div class="container text-light">
         <form onsubmit="event.preventDefault();submitIdea()">
             <div class="form-group">
                 <label for="frm_uname">Name</label>
-                <input type="email" class="form-control" id="frm_uname" placeholder="Anonymous">
+                <input type="text" class="form-control" id="frm_uname" placeholder="Anonymous">
             </div>
             <div class="form-group">
                 <label for="frm_mail">Email @include('common.required_indicator')</label>

@@ -12,7 +12,7 @@ class Rating extends Model
         return $this->belongsTo('App\Models\Idea', 'idea_id');
     }
 
-    protected $fillable = ['rating', 'created_at'];
+    protected $fillable = ['rating', 'created_at', 'idea_id'];
     protected $table = 't_rating';
     protected $primaryKey = 'id';
 }

@@ -28,11 +28,24 @@
             max-width: 1000px;
             display: inline-block;;
         }
+
+        .navbar {
+            -webkit-transition: all 0.6s ease-out;
+            -moz-transition: all 0.6s ease-out;
+            -o-transition: all 0.6s ease-out;
+            -ms-transition: all 0.6s ease-out;
+            transition: all 0.6s ease-out;
+        }
+
+        .navbar.scrolled {
+            background: rgb(68, 68, 68) !important; /* IE */
+            background: rgba(248, 259, 250, 0.95) !important; /* NON-IE */
+        }
     </style>
 </head>
-<body class="bg-light">
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">eLISA</a>
+<body class="bg-dark" onscroll="checkScroll()">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <a class="navbar-brand" href="/"><img src="/img/elisa_logo_light.png" style="max-height:30px"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -56,10 +69,10 @@
     </div>
 </nav>
 <header>
-    <div class="position-relative overflow-hidden text-center bg-light">
+    <div class="position-relative overflow-hidden text-center bg-dark">
         <div class="col-md-5 mx-auto my-5">
-            <h1>@yield('title')</h1>
-            <p class="lead font-weight-normal">@yield('subtitle')</p>
+            <h1 class="text-light">@yield('title')</h1>
+            <p class="lead font-weight-normal text-light">@yield('subtitle')</p>
         </div>
     </div>
 </header>
@@ -67,6 +80,19 @@
     @yield('content')
 </div>
 @yield('scripts')
+
+<script>
+    function checkScroll() {
+        console.log('scroll');
+        var startY = $('.navbar').height() * 2; //The point where the navbar changes in px
+
+        if ($(window).scrollTop() > startY) {
+            $('.navbar').addClass("scrolled");
+        } else {
+            $('.navbar').removeClass("scrolled");
+        }
+    }
+</script>
 </body>
 
 </html>
