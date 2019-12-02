@@ -36,10 +36,12 @@ class ContactController extends Controller
             $to = Crypt::decrypt(Idea::find($id)->email);
             $subject = Idea::find($id)->title;
             $message = "eLISA email from '" . $name . "'.\n\n" . $msg;
-            mail($to, $subject, $message, $headers);
-            return response($id, 200);
-        } catch (Exception $ex) {
-            return response()->json(['err' => 'Something went wrong.'], 500);
+
+            if (mail($to, $subject, $message, $headers))
+                return response($id, 200);
+            else throw new \ErrorException('Failed to send message');
+        } catch (\Exception $ex) {
+            return response()->json(['err' => ['Something went wrong.']], 500);
         }
     }
 }
