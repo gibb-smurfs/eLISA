@@ -37,7 +37,6 @@ services:
             - 3306
         networks:
             - netisa
-
 volumes:
     dbdata:
         driver: local

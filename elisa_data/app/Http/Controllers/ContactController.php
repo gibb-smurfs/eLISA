@@ -6,6 +6,7 @@ use App\Models\Idea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
+
 class ContactController extends Controller
 {
     public function __construct()
@@ -29,17 +30,22 @@ class ContactController extends Controller
 
         try {
             $id = $request->post('id');
-            $name = $request->post('name');
-            $from = $request->post('email');
-            $headers = "From:" . $from;
-            $msg = $request->input('msg');
+            $idea_title = Idea::find($id)->title;
             $to = Crypt::decrypt(Idea::find($id)->email);
-            $subject = Idea::find($id)->title;
-            $message = "eLISA email from '" . $name . "'.\n\n" . $msg;
 
-            if (mail($to, $subject, $message, $headers))
-                return response($id, 200);
-            else throw new \ErrorException('Failed to send message');
+            \Illuminate\Support\Facades\Mail::to($to)
+                ->send(
+                    new \App\Mail\ContactRequestMail(
+                        $request->post('msg'),
+                        $request->post('name'),
+                        $request->post('email'),
+                        $idea_title,
+                        $id
+                    )
+                );
+
+            return response($id, 200);
+
         } catch (\Exception $ex) {
             return response()->json(['err' => ['Something went wrong.']], 500);
         }
