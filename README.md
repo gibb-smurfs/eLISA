@@ -4,7 +4,7 @@ eLISA is a little application to share Ideas and commit to one to start developi
 
 ## Installation
 
-1.) Add credentials in `./elisa_data/.env` and in `./.env`. There are example files.  
+1.) Add credentials in `./elisa/.env` and in `./.env`. There are example files.  
 2.) Install docker and docker-compose.  
 3.) Run `docker-compose up`.  
 
