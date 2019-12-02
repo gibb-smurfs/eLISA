@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Idea;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ContactController extends Controller
 {
@@ -19,22 +20,26 @@ class ContactController extends Controller
 
     public function mailer(Request $request)
     {
-        $id = $request->input('id');
-        $name = $request->input('name');
-        $from = $request->input('email');
-        $headers = "From:" . $from;
-        $msg = $request->input('msg');
-        $to = Idea::find($id)->email;
-        $to = 'm@osswald.li';
-        $subject = Idea::find($id)->title;
-        $message = "eLISA email from '" . $name . "'.\n\n" . $msg;
-        mail($to,$subject,$message, $headers);
-        $this->success();
-    }
+        $this->validate($request, [
+            'id' => 'required|numeric',
+            'name' => 'required|max:40',
+            'email' => 'required|email|max:60',
+            'msg' => 'required|min:10|max:1000'
+        ]);
 
-    public function success()
-    {
-        echo "Mail was sent.";
+        try {
+            $id = $request->post('id');
+            $name = $request->post('name');
+            $from = $request->post('email');
+            $headers = "From:" . $from;
+            $msg = $request->input('msg');
+            $to = Crypt::decrypt(Idea::find($id)->email);
+            $subject = Idea::find($id)->title;
+            $message = "eLISA email from '" . $name . "'.\n\n" . $msg;
+            mail($to, $subject, $message, $headers);
+            return response($id, 200);
+        } catch (Exception $ex) {
+            return response()->json(['err' => 'Something went wrong.'], 500);
+        }
     }
-
 }
