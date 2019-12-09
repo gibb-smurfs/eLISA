@@ -20,6 +20,16 @@
         body {
             text-align: center;
             padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        footer {
+            bottom: 0;
+            min-height: 35px;
+            padding-top: 5px;
+            position: fixed;
+            width: 100%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.3);
         }
 
         .content__wrapper {
@@ -66,6 +76,7 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
+        <a class="btn btn-outline-warning my-2 my-sm-0 ml-2" href="/files/guide.pdf">?</a>
     </div>
 </nav>
 <header>

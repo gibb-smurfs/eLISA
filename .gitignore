@@ -1,10 +1,12 @@
-elisa_data/vendor
-elisa_data/.env
-elisa_data/.idea
-elisa_data/storage
+elisa/vendor
+elisa/.env
+elisa/.idea
+elisa/storage
 /.idea
 /.vscode
 Homestead.json
 Homestead.yaml
 .env
 .phpunit.result.cache
+.env.bak
+elisa_data
