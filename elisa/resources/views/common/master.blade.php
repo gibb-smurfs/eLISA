@@ -79,6 +79,12 @@
 <div class="content__wrapper">
     @yield('content')
 </div>
+
+<footer class="mt-5 text-muted bg-light">
+    <div>
+        <a href="/imprint">Imprint</a>
+    </div>
+</footer>
 @yield('scripts')
 
 <script>

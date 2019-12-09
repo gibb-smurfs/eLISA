@@ -14,6 +14,7 @@
 // View Routes
 
 $router->get('/', 'HomeController@index');
+$router->get('/imprint', 'ImprintController@index');
 $router->get('/top', 'HomeController@top');
 $router->get('/trending', 'HomeController@trending');
 $router->get('idea/new', 'HomeController@new');
