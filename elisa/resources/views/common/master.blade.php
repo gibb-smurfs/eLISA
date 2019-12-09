@@ -23,6 +23,10 @@
             padding-bottom: 80px;
         }
 
+        h2.no-results {
+            font-size: 8rem;
+        }
+
         footer {
             bottom: 0;
             min-height: 35px;
