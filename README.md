@@ -15,3 +15,9 @@ Checkout the installation steps above.
 Instead of step 3 do `docker-compose up --force-recreate --build`.  
 4.) Execute `docker-compose exec app php artisan migrate` (while the containers are running).  
 5.) Generate some example data with `docker-compose exec app <some command>`.
+
+To build without cache do:
+
+```
+sudo docker-compose build --no-cache
+```
